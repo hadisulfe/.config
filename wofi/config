@@ -1,16 +1,24 @@
 show=drun
-prompt=Run
-width=300
-height=100
+prompt=Search
+width=40%
+height=45%
 always_parse_args=true
 show_all=false
 print_command=true
 layer=overlay
+term=kitty
 
-# Enable icons
-allow_images=false
-image_size=24
+# Icons
+allow_images=true
+image_size=32
+
+# Search
+matching=fuzzy
+insensitive=true
+no_actions=true
 
 # Layout
 location=center
 orientation=vertical
+hide_scroll=true
+key_expand=Tab

@@ -1,6 +1,18 @@
+/* Palette sampled from the Spamton wallpaper (see hypr/colors.lua) */
+@define-color base    #161723;
+@define-color surface #1f2547;
+@define-color overlay #481f40;
+@define-color muted   #92abba;
+@define-color text    #f0f2d6;
+@define-color pink    #f0a6dc;
+@define-color gold    #f5c842;
+@define-color cyan    #74d8e6;
+@define-color blue    #2c5dad;
+@define-color red     #e8322a;
+
 * {
     font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     border: none;
     border-radius: 0;
     min-height: 0;
@@ -9,104 +21,142 @@
 }
 
 window#waybar {
-    /* Dark, slightly transparent background mimicking the alleyway */
-    background: rgba(15, 20, 25, 0.85); 
-    color: #e0e0e0;
+    background: alpha(@base, 0.85);
+    color: @text;
+    border-top: 2px solid alpha(@overlay, 0.9);
 }
 
-/* Module Base Styling */
-#workspaces, #clock, #pulseaudio, #network, #backlight,
-#power-profiles-daemon, #bluetooth, #language, #battery, #tray {
-    background: rgba(30, 38, 46, 0.65);
-    margin: 2px 2px;
-    padding: 0 6px;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 229, 255, 0.1);
+tooltip {
+    background: @base;
+    border: 1px solid @pink;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: @text;
+}
+
+/* Pills */
+#workspaces, #mpris, #clock, #idle_inhibitor, #custom-dnd, #pulseaudio, #network,
+#backlight, #power-profiles-daemon, #bluetooth, #language, #battery, #tray, #custom-power {
+    background: alpha(@surface, 0.75);
+    color: @text;
+    margin: 3px 2px;
+    padding: 0 10px;
+    border-radius: 8px;
+    border: 1px solid alpha(@pink, 0.12);
     transition: all 0.2s ease-in-out;
 }
 
 /* Workspaces */
+#workspaces {
+    padding: 0 3px;
+}
+
 #workspaces button {
-    padding: 0 5px;
-    color: #5A7482; 
+    padding: 0 8px;
+    margin: 2px 1px;
+    color: @muted;
+    border-radius: 6px;
     transition: all 0.2s ease;
-    border-radius: 4px;
-    margin: 1px;
+}
+
+#workspaces button.empty {
+    color: alpha(@muted, 0.45);
 }
 
 #workspaces button:hover {
-    background: rgba(0, 229, 255, 0.15);
-    color: #00E5FF;
+    background: alpha(@pink, 0.15);
+    color: @pink;
+    box-shadow: none;
+    text-shadow: none;
 }
 
 #workspaces button.active {
-    color: #00E5FF;
+    background: @pink;
+    color: @base;
     font-weight: bold;
-    background: rgba(0, 229, 255, 0.1);
-    text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
 }
 
 #workspaces button.urgent {
-    color: #FF4A4A;
-    text-shadow: 0 0 5px rgba(255, 74, 74, 0.5);
+    background: @red;
+    color: @base;
 }
 
-/* Center Module */
+/* Center */
 #clock {
-    color: #00E5FF;
+    color: @gold;
     font-weight: bold;
-    padding: 0 8px;
+    border-color: alpha(@gold, 0.3);
 }
 
-/* Right Modules */
-#pulseaudio, #network, #backlight, #bluetooth, #language, #power-profiles-daemon {
-    color: #C1D1D9;
+#mpris {
+    color: @cyan;
 }
 
-#pulseaudio.muted {
-    color: #FF4A4A;
+#mpris.paused {
+    color: @muted;
 }
 
-#network.disconnected {
-    color: #FF4A4A;
+/* Right */
+#idle_inhibitor.activated,
+#custom-dnd {
+    color: @gold;
+}
+
+#pulseaudio.muted,
+#network.disconnected,
+#bluetooth.disabled,
+#bluetooth.off {
+    color: @red;
+}
+
+#bluetooth.connected {
+    color: @cyan;
+}
+
+#power-profiles-daemon.performance {
+    color: @red;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @cyan;
 }
 
 /* Battery */
-#battery {
-    color: #C1D1D9;
-}
-
-#battery.charging, #battery.plugged {
-    color: #00E5FF;
+#battery.charging,
+#battery.plugged {
+    color: @cyan;
 }
 
 #battery.warning:not(.charging) {
-    color: #FFB86C;
+    color: @gold;
 }
 
 #battery.critical:not(.charging) {
-    background: #FF4A4A;
-    color: #151A1E;
+    background: @red;
+    color: @base;
+    border-color: @red;
     animation: blink 1s linear infinite;
-    border: 1px solid #FF4A4A;
 }
 
-#tray {
-    padding: 0 4px;
+#tray > .needs-attention {
+    background: @red;
 }
 
-/* Animations */
+#custom-power {
+    color: @base;
+    background: @pink;
+    padding: 0 12px;
+}
+
+#custom-power:hover {
+    background: @gold;
+}
+
 @keyframes blink {
-    0% {
-        background-color: #FF4A4A;
-        color: #151A1E;
-    }
     50% {
-        background-color: rgba(255, 74, 74, 0.3);
-        color: #FF4A4A;
-    }
-    100% {
-        background-color: #FF4A4A;
-        color: #151A1E;
+        background-color: alpha(@red, 0.3);
+        color: @red;
     }
 }

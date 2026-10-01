@@ -1,97 +1,132 @@
 // -*- mode: jsonc -*-
 {
+    "layer": "top",
     "position": "bottom",
-    "height": 26,
-    "spacing": 2,
+    "height": 30,
+    "spacing": 4,
     "modules-left": [
-        "hyprland/workspaces"
+        "hyprland/workspaces",
+        "mpris"
     ],
     "modules-center": [
         "clock"
     ],
     "modules-right": [
+        "idle_inhibitor",
+        "custom/dnd",
         "pulseaudio",
         "network",
-		"backlight",
+        "backlight",
         "power-profiles-daemon",
         "bluetooth",
         "hyprland/language",
         "battery",
-	"tray"
+        "tray",
+        "custom/power"
     ],
-
     "hyprland/workspaces": {
-        "disable-scroll": true,
         "all-outputs": true,
-        "warp-on-scroll": false,
-        "format": "{icon}"
+        "disable-scroll": true,
+        "format": "{name}",
+        "persistent-workspaces": {
+            "*": 5
+        }
     },
-    "hyprland/language": {
-        "format": "{}",
-        "format-en": "EN",
-        "format-ar": "AR",
-        "keyboard-name": "at-translated-set-2-keyboard"
-    },
-
-    "bluetooth": {
-        "format": "󰂯  {status}",
-        "format-connected": "󰂱  {device_alias}",
-        "format-connected-battery": "󰂱  {device_alias} {device_battery_percentage}%",
-        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "on-click-right": "kitty -e bluetui"
-    },
-	"backlight": {
-        	"format": "{percent}% {icon} ",
-        	"format-icons": ["", "", "", "", "", "", "", "", ""],     
-        	"on-scroll-up": "hyprlight i",
-        	"on-scroll-down": "hyprlight d"
-	},
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) {volume}%",
-        "format-disconnected": "󰝛  Disconnected",
-        "format-stopped": "󰝛  Stopped",
-        "unknown-tag": "N/A",
-        "interval": 5,
-        "consume-icons": {
-            "on": "󰮯 "
-        },
-        "random-icons": {
-            "off": "",
-            "on": "󰒝 "
-        },
-        "repeat-icons": {
-            "on": "󰑖 "
-        },
-        "single-icons": {
-            "on": "󰑘 "
-        },
-        "state-icons": {
+    "mpris": {
+        "format": "{status_icon}  {dynamic}",
+        "dynamic-len": 40,
+        "dynamic-order": [
+            "artist",
+            "title"
+        ],
+        "status-icons": {
+            "playing": "󰐊",
             "paused": "󰏤",
-            "playing": "󰐊"
+            "stopped": "󰓛"
         },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous"
     },
-
     "clock": {
-        "interval": 1,
-        "format": "󰥔  {:%A, %d %b  %H:%M}"
+        "interval": 60,
+        "format": "󰥔  {:%a %d %b  %H:%M}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "today": "<span color='#f5c842'><b>{}</b></span>",
+                "weekdays": "<span color='#f0a6dc'>{}</span>"
+            }
+        }
     },
-
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰈈",
+            "deactivated": "󰈉"
         },
-        "format": "{capacity}%  {icon}",
-        "format-charging": "{capacity}%  󰂄",
-        "format-plugged": "{capacity}%  󰚥",
-        "format-alt": "{time}  {icon}",
-        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        "tooltip-format-activated": "Idle inhibitor on",
+        "tooltip-format-deactivated": "Idle inhibitor off"
     },
-
+    "custom/dnd": {
+        "exec": "makoctl mode | grep -q do-not-disturb && echo '󰂛' || echo '󰂚'",
+        "interval": "once",
+        "signal": 8,
+        "tooltip": false,
+        "on-click": "makoctl mode -t do-not-disturb; pkill -RTMIN+8 waybar",
+        "on-click-right": "makoctl restore"
+    },
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{icon}  {volume}%{format_source}",
+        "format-bluetooth": "󰂰  {volume}%{format_source}",
+        "format-bluetooth-muted": "󰂲{format_source}",
+        "format-muted": "󰝟{format_source}",
+        "format-source": "",
+        "format-source-muted": "  󰍭",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋋",
+            "headset": "󰋎",
+            "phone": "󰄜",
+            "portable": "󰄜",
+            "car": "󰄋",
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
+        },
+        "on-click-right": "pavucontrol",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+    "network": {
+        "format-wifi": "󰤨  {signalStrength}%",
+        "format-ethernet": "󰈀",
+        "format-linked": "󰈂",
+        "format-disconnected": "󰤭",
+        "tooltip-format-wifi": "{essid}\n{ipaddr}/{cidr} via {gwaddr}",
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}",
+        "tooltip-format-disconnected": "Disconnected",
+        "on-click-right": "kitty -e nmtui"
+    },
+    "backlight": {
+        "format": "{icon}  {percent}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "on-scroll-up": "brightnessctl -e4 -n2 set 5%+",
+        "on-scroll-down": "brightnessctl -e4 -n2 set 5%-"
+    },
     "power-profiles-daemon": {
         "format": "{icon}",
         "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
@@ -103,48 +138,53 @@
             "power-saver": "󰌪"
         }
     },
-
-    "network": {
-        "format-wifi": "󰤨  {essid} ({signalStrength}%)",
-        "format-ethernet": "󰈀  {ipaddr}/{cidr}",
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "format-linked": "󰈂  {ifname} (No IP)",
-        "format-disconnected": "󰤭  Disconnected",
-        "on-click-right": "kitty -e nmtui"
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-connected": "󰂱  {num_connections}",
+        "format-connected-battery": "󰂱  {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click-right": "kitty -e bluetui"
     },
-
-    "pulseaudio": {
-        "scroll-step": 5,
-        "format": "{volume}%  {icon}  {format_source}",
-        "format-bluetooth": "{volume}%  󰂰  {format_source}",
-        "format-bluetooth-muted": "󰂲  {format_source}",
-        "format-muted": "󰝟  {format_source}",
-        "format-source": "{volume}%  󰍬",
-        "format-source-muted": "󰍭",
-        "format-icons": {
-            "headphone": "󰋋",
-            "hands-free": "󰋋",
-            "headset": "󰋎",
-            "phone": "󰄜",
-            "portable": "󰄜",
-            "car": "󰄋",
-            "default": ["󰕿", "󰖀", "󰕾"]
+    "hyprland/language": {
+        "format": "{}",
+        "format-en": "EN",
+        "format-ar": "AR",
+        "keyboard-name": "at-translated-set-2-keyboard"
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
         },
-        "on-click-right": "pavucontrol"
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-alt": "{icon}  {time}",
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "tooltip-format": "{timeTo}\n{power:.1f} W"
     },
-    "tray":{
-	"spacing": 10
+    "tray": {
+        "spacing": 10,
+        "icon-size": 16
     },
     "custom/power": {
         "format": "󰐥",
         "tooltip": false,
-        "menu": "on-click",
-        "menu-file": "$HOME/.config/waybar/power_menu.xml",
-        "menu-actions": {
-            "shutdown": "shutdown",
-            "reboot": "reboot",
-            "suspend": "systemctl suspend",
-            "hibernate": "systemctl hibernate"
-        }
+        "on-click": "~/.config/wofi/powermenu.sh"
     }
 }
