@@ -1,49 +1,29 @@
-/* Palette sampled from the Spamton wallpaper (see hypr/colors.lua) */
-@define-color base    #161723;
-@define-color surface #1f2547;
-@define-color overlay #481f40;
-@define-color muted   #92abba;
-@define-color text    #f0f2d6;
-@define-color pink    #f0a6dc;
-@define-color gold    #f5c842;
-
-* {
-    font-family: "JetBrainsMono Nerd Font", sans-serif;
-    font-size: 15px;
-}
-
 window {
     margin: 0px;
-    border: 2px solid @pink;
-    background-color: alpha(@base, 0.92);
-    border-radius: 14px;
+    border: 2px solid #1e1e2e;
+    background-color: #1e1e2e;
+    border-radius: 10px;
 }
 
 #input {
-    margin: 12px;
-    padding: 10px 14px;
-    border: 1px solid alpha(@pink, 0.25);
-    border-radius: 10px;
-    color: @text;
-    background-color: @surface;
-    caret-color: @gold;
-}
-
-#input:focus {
-    border-color: @gold;
-    box-shadow: none;
+    margin: 10px;
+    border: none;
+    color: #cdd6f4;
+    background-color: #313244;
+    border-radius: 6px;
+    padding: 8px;
 }
 
 #inner-box {
-    margin: 4px 12px 12px 12px;
+    margin: 5px;
     border: none;
-    background-color: transparent;
+    background-color: #1e1e2e;
 }
 
 #outer-box {
-    margin: 0px;
+    margin: 5px;
     border: none;
-    background-color: transparent;
+    background-color: #1e1e2e;
 }
 
 #scroll {
@@ -52,26 +32,22 @@ window {
 }
 
 #entry {
-    padding: 8px 12px;
-    border-radius: 10px;
-    border-left: 3px solid transparent;
+    padding: 8px;
+    border-radius: 6px;
 }
 
 #entry:selected {
-    background-color: alpha(@overlay, 0.9);
-    border-left: 3px solid @gold;
-    outline: none;
+    background-color: #585b70;
 }
 
 #text {
-    color: @text;
+    color: #cdd6f4;
 }
 
 #text:selected {
-    color: @gold;
-    font-weight: bold;
+    color: #ffffff;
 }
 
 #img {
-    margin-right: 10px;
+    margin-right: 8px;
 }
