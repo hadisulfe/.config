@@ -1,0 +1,112 @@
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+window#waybar {
+    /* Dark, slightly transparent background mimicking the alleyway */
+    background: rgba(15, 20, 25, 0.85); 
+    color: #e0e0e0;
+}
+
+/* Module Base Styling */
+#workspaces, #clock, #pulseaudio, #network, #backlight,
+#power-profiles-daemon, #bluetooth, #language, #battery, #tray {
+    background: rgba(30, 38, 46, 0.65);
+    margin: 2px 2px;
+    padding: 0 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Workspaces */
+#workspaces button {
+    padding: 0 5px;
+    color: #5A7482; 
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    margin: 1px;
+}
+
+#workspaces button:hover {
+    background: rgba(0, 229, 255, 0.15);
+    color: #00E5FF;
+}
+
+#workspaces button.active {
+    color: #00E5FF;
+    font-weight: bold;
+    background: rgba(0, 229, 255, 0.1);
+    text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+}
+
+#workspaces button.urgent {
+    color: #FF4A4A;
+    text-shadow: 0 0 5px rgba(255, 74, 74, 0.5);
+}
+
+/* Center Module */
+#clock {
+    color: #00E5FF;
+    font-weight: bold;
+    padding: 0 8px;
+}
+
+/* Right Modules */
+#pulseaudio, #network, #backlight, #bluetooth, #language, #power-profiles-daemon {
+    color: #C1D1D9;
+}
+
+#pulseaudio.muted {
+    color: #FF4A4A;
+}
+
+#network.disconnected {
+    color: #FF4A4A;
+}
+
+/* Battery */
+#battery {
+    color: #C1D1D9;
+}
+
+#battery.charging, #battery.plugged {
+    color: #00E5FF;
+}
+
+#battery.warning:not(.charging) {
+    color: #FFB86C;
+}
+
+#battery.critical:not(.charging) {
+    background: #FF4A4A;
+    color: #151A1E;
+    animation: blink 1s linear infinite;
+    border: 1px solid #FF4A4A;
+}
+
+#tray {
+    padding: 0 4px;
+}
+
+/* Animations */
+@keyframes blink {
+    0% {
+        background-color: #FF4A4A;
+        color: #151A1E;
+    }
+    50% {
+        background-color: rgba(255, 74, 74, 0.3);
+        color: #FF4A4A;
+    }
+    100% {
+        background-color: #FF4A4A;
+        color: #151A1E;
+    }
+}

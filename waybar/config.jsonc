@@ -1,0 +1,150 @@
+// -*- mode: jsonc -*-
+{
+    "position": "bottom",
+    "height": 26,
+    "spacing": 2,
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+		"backlight",
+        "power-profiles-daemon",
+        "bluetooth",
+        "hyprland/language",
+        "battery",
+	"tray"
+    ],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "format": "{icon}"
+    },
+    "hyprland/language": {
+        "format": "{}",
+        "format-en": "EN",
+        "format-ar": "AR",
+        "keyboard-name": "at-translated-set-2-keyboard"
+    },
+
+    "bluetooth": {
+        "format": "󰂯  {status}",
+        "format-connected": "󰂱  {device_alias}",
+        "format-connected-battery": "󰂱  {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click-right": "kitty -e bluetui"
+    },
+	"backlight": {
+        	"format": "{percent}% {icon} ",
+        	"format-icons": ["", "", "", "", "", "", "", "", ""],     
+        	"on-scroll-up": "hyprlight i",
+        	"on-scroll-down": "hyprlight d"
+	},
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) {volume}%",
+        "format-disconnected": "󰝛  Disconnected",
+        "format-stopped": "󰝛  Stopped",
+        "unknown-tag": "N/A",
+        "interval": 5,
+        "consume-icons": {
+            "on": "󰮯 "
+        },
+        "random-icons": {
+            "off": "",
+            "on": "󰒝 "
+        },
+        "repeat-icons": {
+            "on": "󰑖 "
+        },
+        "single-icons": {
+            "on": "󰑘 "
+        },
+        "state-icons": {
+            "paused": "󰏤",
+            "playing": "󰐊"
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+
+    "clock": {
+        "interval": 1,
+        "format": "󰥔  {:%A, %d %b  %H:%M}"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}%  {icon}",
+        "format-charging": "{capacity}%  󰂄",
+        "format-plugged": "{capacity}%  󰚥",
+        "format-alt": "{time}  {icon}",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "󰾅",
+            "performance": "󰓅",
+            "balanced": "󰾆",
+            "power-saver": "󰌪"
+        }
+    },
+
+    "network": {
+        "format-wifi": "󰤨  {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈀  {ipaddr}/{cidr}",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "󰈂  {ifname} (No IP)",
+        "format-disconnected": "󰤭  Disconnected",
+        "on-click-right": "kitty -e nmtui"
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{volume}%  {icon}  {format_source}",
+        "format-bluetooth": "{volume}%  󰂰  {format_source}",
+        "format-bluetooth-muted": "󰂲  {format_source}",
+        "format-muted": "󰝟  {format_source}",
+        "format-source": "{volume}%  󰍬",
+        "format-source-muted": "󰍭",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋋",
+            "headset": "󰋎",
+            "phone": "󰄜",
+            "portable": "󰄜",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click-right": "pavucontrol"
+    },
+    "tray":{
+	"spacing": 10
+    },
+    "custom/power": {
+        "format": "󰐥",
+        "tooltip": false,
+        "menu": "on-click",
+        "menu-file": "$HOME/.config/waybar/power_menu.xml",
+        "menu-actions": {
+            "shutdown": "shutdown",
+            "reboot": "reboot",
+            "suspend": "systemctl suspend",
+            "hibernate": "systemctl hibernate"
+        }
+    }
+}

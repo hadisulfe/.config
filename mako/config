@@ -1,0 +1,78 @@
+# ~/.config/mako/config
+# Mako notification daemon — Hyprland / Arch Linux
+# Color scheme based on wallpaper palette
+
+# ── General ──────────────────────────────────────────────
+max-history=3
+sort=-time
+
+# ── Behaviour ────────────────────────────────────────────
+on-button-left=dismiss
+on-button-middle=none
+on-button-right=dismiss-all
+on-touch=dismiss
+
+# ── Layout ───────────────────────────────────────────────
+anchor=top-right
+margin=10
+padding=15
+width=300
+height=110
+layer=overlay
+max-visible=5
+
+# ── Style ────────────────────────────────────────────────
+font=Sans 11
+border-size=2
+border-radius=10
+icons=1
+max-icon-size=48
+icon-location=left
+markup=1
+actions=1
+history=1
+text-alignment=left
+
+# ── Timeouts ─────────────────────────────────────────────
+default-timeout=5000
+ignore-timeout=0
+
+# ── Colors (wallpaper palette) ────────────────────────────
+#
+#  Sampled from your wallpaper:
+#   Deep navy bg       →  #0d1b2e
+#   Rich cobalt blue   →  #1e4d8c
+#   Bright sky blue    →  #4aa8d8
+#   Teal/mint accent   →  #3ecfb2
+#   Warm crimson/rose  →  #c42a4e
+#   Soft white (face)  →  #e8e0d0
+#
+background-color=#0d1b2edd
+text-color=#e8e0d0
+border-color=#1e4d8c
+progress-color=over #4aa8d8
+
+# ── Urgency overrides ─────────────────────────────────────
+[urgency=low]
+background-color=#0d1b2ecc
+border-color=#1e4d8c
+text-color=#a0b8c8
+default-timeout=2000
+
+[urgency=normal]
+background-color=#0d1b2edd
+border-color=#4aa8d8
+text-color=#e8e0d0
+default-timeout=5000
+
+[urgency=high]
+background-color=#1a0a10dd
+border-color=#c42a4e
+text-color=#f0c0c8
+default-timeout=0
+
+# ── App-specific overrides ────────────────────────────────
+[category=mpd]
+border-color=#3ecfb2
+default-timeout=2000
+group-by=category
