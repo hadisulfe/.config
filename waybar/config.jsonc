@@ -19,7 +19,7 @@
         "backlight",
         "power-profiles-daemon",
         "bluetooth",
-        "hyprland/language",
+        "custom/language",
         "battery",
         "tray",
         "custom/power"
@@ -149,11 +149,11 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "on-click-right": "kitty -e bluetui"
     },
-    "hyprland/language": {
+    "custom/language": {
+        "exec": "~/.config/waybar/scripts/language.sh",
         "format": "{}",
-        "format-en": "EN",
-        "format-ar": "AR",
-        "keyboard-name": "ite-tech.-inc.-ite-device(8258)-keyboard"
+        "tooltip": false,
+        "on-click": "hyprctl switchxkblayout ite-tech.-inc.-ite-device(8258)-keyboard next"
     },
     "battery": {
         "states": {
