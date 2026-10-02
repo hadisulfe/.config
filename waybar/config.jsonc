@@ -27,10 +27,7 @@
     "hyprland/workspaces": {
         "all-outputs": true,
         "disable-scroll": true,
-        "format": "{name}",
-        "persistent-workspaces": {
-            "*": 5
-        }
+        "format": "{name}"
     },
     "mpris": {
         "format": "{status_icon}  {dynamic}",
