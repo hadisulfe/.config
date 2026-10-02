@@ -30,7 +30,7 @@ if command -v socat >/dev/null 2>&1; then
         esac
     done
 else
-    while sleep 1; do
+    while sleep 0.25; do
         short "$(current)"
     done
 fi
