@@ -1,29 +1,30 @@
 # ~/.config/mako/config
-# Palette sampled from the Spamton wallpaper (see hypr/colors.lua)
+# Mako notification daemon — Hyprland / Arch Linux
+# Color scheme based on wallpaper palette
 
-# General
-max-history=20
+# ── General ──────────────────────────────────────────────
+max-history=3
 sort=-time
 
-# Behaviour
+# ── Behaviour ────────────────────────────────────────────
 on-button-left=dismiss
 on-button-middle=none
 on-button-right=dismiss-all
 on-touch=dismiss
 
-# Layout
+# ── Layout ───────────────────────────────────────────────
 anchor=top-right
-margin=12
-padding=14
-width=360
-height=150
+margin=10
+padding=15
+width=300
+height=110
 layer=overlay
 max-visible=5
 
-# Style
-font=JetBrainsMono Nerd Font 11
+# ── Style ────────────────────────────────────────────────
+font=Sans 11
 border-size=2
-border-radius=12
+border-radius=10
 icons=1
 max-icon-size=48
 icon-location=left
@@ -32,40 +33,46 @@ actions=1
 history=1
 text-alignment=left
 
-# Timeouts
+# ── Timeouts ─────────────────────────────────────────────
 default-timeout=5000
 ignore-timeout=0
 
-# Colors
-background-color=#161723e6
-text-color=#f0f2d6
-border-color=#f0a6dc
-progress-color=over #481f40
+# ── Colors (wallpaper palette) ────────────────────────────
+#
+#  Sampled from your wallpaper:
+#   Deep navy bg       →  #0d1b2e
+#   Rich cobalt blue   →  #1e4d8c
+#   Bright sky blue    →  #4aa8d8
+#   Teal/mint accent   →  #3ecfb2
+#   Warm crimson/rose  →  #c42a4e
+#   Soft white (face)  →  #e8e0d0
+#
+background-color=#0d1b2edd
+text-color=#e8e0d0
+border-color=#1e4d8c
+progress-color=over #4aa8d8
 
+# ── Urgency overrides ─────────────────────────────────────
 [urgency=low]
-border-color=#92abba
-text-color=#92abba
+background-color=#0d1b2ecc
+border-color=#1e4d8c
+text-color=#a0b8c8
 default-timeout=2000
 
 [urgency=normal]
-border-color=#f0a6dc
+background-color=#0d1b2edd
+border-color=#4aa8d8
+text-color=#e8e0d0
 default-timeout=5000
 
 [urgency=high]
-background-color=#2a0f14e6
-border-color=#e8322a
-text-color=#f0f2d6
+background-color=#1a0a10dd
+border-color=#c42a4e
+text-color=#f0c0c8
 default-timeout=0
 
+# ── App-specific overrides ────────────────────────────────
 [category=mpd]
-border-color=#74d8e6
+border-color=#3ecfb2
 default-timeout=2000
 group-by=category
-
-[app-name=Spotify]
-border-color=#f5c842
-default-timeout=3000
-
-# Toggled from the bell in waybar: makoctl mode -t do-not-disturb
-[mode=do-not-disturb]
-invisible=1
