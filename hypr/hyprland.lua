@@ -19,7 +19,7 @@ end
 hl.env("AQ_DRM_DEVICES", "/dev/dri/card2:/dev/dri/card1")
 
 -- "highrr" picks the panel's highest refresh rate. For an explicit mode see: hyprctl monitors all
-hl.monitor({ output = "", mode = "highrr", position = "auto", scale = "1.6" })
+hl.monitor({ output = "", mode = "highres", position = "auto", scale = "1.6" })
 
 
 ---------------------
@@ -70,10 +70,10 @@ hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
 hl.config({
     general = {
-        gaps_in  = 3,
-        gaps_out = 6,
+        gaps_in  = 1,
+        gaps_out = 1,
 
-        border_size = 2,
+        border_size = 0,
 
         col = {
             active_border   = { colors = { rgba(c.pink), rgba(c.gold) }, angle = 45 },
@@ -173,7 +173,7 @@ hl.config({
         force_default_wallpaper  = 0,
         disable_hyprland_logo    = true,
         disable_splash_rendering = true,
-        vrr                      = 2, -- adaptive sync in fullscreen only (games, video)
+        vrr                      = 0, -- adaptive sync in fullscreen only (games, video)
     },
 })
 
@@ -349,13 +349,6 @@ hl.window_rule({
     name    = "opaque-apps",
     match   = { class = "^(brave-browser|mpv|imv|steam_app_.*|osu!|osu.AppImage|osu!lazer)$" },
     opacity = "1.0 override 1.0 override",
-})
-
--- Tearing for osu (needs general.allow_tearing = true)
-hl.window_rule({
-    name      = "osu-tearing",
-    match     = { class = "^(osu!|osu.AppImage|osu!lazer)$" },
-    immediate = true,
 })
 
 -- Blur behind the bar, launcher and notifications
