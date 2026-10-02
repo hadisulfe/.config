@@ -38,7 +38,7 @@ tooltip label {
 
 /* Pills */
 #workspaces, #mpris, #clock, #idle_inhibitor, #custom-dnd, #pulseaudio, #network,
-#backlight, #power-profiles-daemon, #bluetooth, #language, #battery, #tray, #custom-power {
+#backlight, #power-profiles-daemon, #bluetooth, #custom-language, #battery, #tray, #custom-power {
     background: alpha(@surface, 0.75);
     color: @text;
     margin: 3px 2px;
