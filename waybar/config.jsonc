@@ -19,7 +19,7 @@
         "backlight",
         "power-profiles-daemon",
         "bluetooth",
-        "custom/language",
+        "hyprland/language",
         "battery",
         "tray",
         "custom/power"
@@ -149,11 +149,11 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "on-click-right": "kitty -e bluetui"
     },
-    "custom/language": {
-        "exec": "~/.config/waybar/scripts/language.sh",
+    "hyprland/language": {
         "format": "{}",
-        "tooltip": false,
-        "on-click": "hyprctl switchxkblayout all next"
+        "format-en": "EN",
+        "format-ar": "AR",
+        "keyboard-name": "at-translated-set-2-keyboard"
     },
     "battery": {
         "states": {
