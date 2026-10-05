@@ -13,13 +13,13 @@ end
 ---- MONITORS ----
 ------------------
 
--- Primary GPU is listed first. Use /dev/dri/by-path names: /dev/dri/cardN numbers can swap between boots,
--- which silently flips the primary GPU (and the panel ends up driven through a PCIe copy = stutter).
---   00:02.0 = Intel UHD iGPU, 01:00.0 = RTX 5070 (check with: ls -l /dev/dri/by-path)
---   BIOS "Discrete graphics" (current): the panel is wired to the RTX -> RTX must be first,
---     games then run on the RTX without prime-run and fullscreen can direct-scanout.
---   BIOS "Hybrid": the panel is wired to the iGPU -> put the iGPU first and use prime-run for games.
-hl.env("AQ_DRM_DEVICES", "/dev/dri/by-path/pci-0000:01:00.0-card:/dev/dri/by-path/pci-0000:00:02.0-card")
+-- Primary GPU: AQ_DRM_DEVICES is deliberately NOT set. Without it aquamarine makes the GPU that owns the
+-- built-in panel (eDP) the primary one, which is what we want and is stable across reboots and BIOS modes:
+--   BIOS "Discrete graphics" (current): eDP is on the RTX 5070 -> RTX primary, games run on it without prime-run.
+--   BIOS "Hybrid": eDP is on the Intel iGPU -> iGPU primary, use prime-run for games.
+-- Do not pin it to /dev/dri/cardN (numbers swap between boots -> wrong primary GPU -> PCIe-copy stutter),
+-- and /dev/dri/by-path names can't be used either: the list is split on ':' and those names contain colons.
+-- Check which GPU owns the panel with: ls /sys/class/drm | grep eDP
 
 -- "highres" picks the panel's highest resolution at its highest refresh rate. For an explicit mode see: hyprctl monitors all
 hl.monitor({ output = "", mode = "highres", position = "auto", scale = "1.6" })
@@ -61,7 +61,7 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- Run Electron/Chromium apps (Brave, Discord, VS Code) as native Wayland: sharp at 1.6 scale
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
--- Only valid while the RTX is the primary GPU (first in AQ_DRM_DEVICES); comment out in hybrid mode
+-- Only valid while the RTX is the primary GPU (BIOS discrete mode); comment out in hybrid mode
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("NVD_BACKEND", "direct")
@@ -181,7 +181,7 @@ hl.config({
 
     render = {
         -- Fullscreen windows bypass the compositor and go straight to the display (no extra copy/latency).
-        -- Only works when the window renders on the GPU that drives the panel (see AQ_DRM_DEVICES).
+        -- Only works when the window renders on the GPU that drives the panel (see MONITORS above).
         direct_scanout = 1,
     },
 })
