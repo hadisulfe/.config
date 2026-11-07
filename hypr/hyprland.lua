@@ -43,6 +43,9 @@ local exitCmd     = "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || 
 
 hl.on("hyprland.start", function ()
     hl.exec_cmd("dbus-update-activation-environment --systemd --all")
+    -- Secret Service for Brave/Discord/VS Code/git passwords. If PAM already started it at login this just
+    -- reuses that (unlocked) daemon; otherwise it starts a locked one that asks for your password once.
+    hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
     hl.exec_cmd("waybar")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("hypridle")
@@ -60,6 +63,9 @@ hl.env("HYPRCURSOR_SIZE", "24")
 
 -- Run Electron/Chromium apps (Brave, Discord, VS Code) as native Wayland: sharp at 1.6 scale
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
+
+-- SSH keys via the keyring's agent (gcr-ssh-agent.socket, from the gcr-4 package)
+hl.env("SSH_AUTH_SOCK", (os.getenv("XDG_RUNTIME_DIR") or "/run/user/1000") .. "/gcr/ssh")
 
 -- Only valid while the RTX is the primary GPU (BIOS discrete mode); comment out in hybrid mode
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
