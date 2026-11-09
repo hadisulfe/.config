@@ -183,6 +183,9 @@ hl.config({
         -- Fullscreen windows bypass the compositor and go straight to the display (no extra copy/latency).
         -- Only works when the window renders on the GPU that drives the panel (see MONITORS above).
         direct_scanout = 1,
+        -- Don't flip the panel into HDR when a window goes fullscreen. Chromium/Electron apps (Brave, Devin) trigger it
+        -- since Hyprland 0.57, and on NVIDIA the HDR switch blanks the screen for a second.
+        cm_auto_hdr = 0,
     },
 })
 
