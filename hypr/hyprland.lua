@@ -182,8 +182,7 @@ hl.config({
     render = {
         -- Fullscreen windows bypass the compositor and go straight to the display (no extra copy/latency).
         -- Only works when the window renders on the GPU that drives the panel (see MONITORS above).
-        -- 2 = only for content type "game" (osu, see the "game-content" rule); 1 made Brave black out on fullscreen toggle.
-        direct_scanout = 2,
+        direct_scanout = 1,
     },
 })
 
@@ -359,13 +358,6 @@ hl.window_rule({
     name    = "opaque-apps",
     match   = { class = "^(brave-browser|mpv|imv|steam_app_.*|osu!|osu.AppImage|osu!lazer)$" },
     opacity = "1.0 override 1.0 override",
-})
-
--- Tag games so render.direct_scanout = 2 scans them out directly
-hl.window_rule({
-    name    = "game-content",
-    match   = { class = "^(steam_app_.*|osu!|osu.AppImage|osu!lazer)$" },
-    content = "game",
 })
 
 -- Blur behind the bar, launcher and notifications
